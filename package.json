@@ -1,0 +1,27 @@
+{
+  "name": "create-stonecutter-mod",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A utility to create a Minecraft mod powered by Stonecutter",
+  "homepage": "https://github.com/ajh123/create-stonecutter-mod#readme",
+  "bugs": {
+    "url": "https://github.com/ajh123/create-stonecutter-mod/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajh123/create-stonecutter-mod.git"
+  },
+  "license": "MIT",
+  "author": "ajh123",
+  "scripts": {
+    "start": "jiti ./index.ts"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.0.0-alpha.6",
+    "jiti": "^2.6.1",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}
