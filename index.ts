@@ -2,6 +2,14 @@ import { setTimeout } from 'node:timers/promises';
 import * as p from '@clack/prompts';
 import color from 'picocolors';
 
+const templates = {
+    fabric: 'Fabric Only Template',
+    'multi-loader-branches': 'Multi-loader Template (using branches)',
+    'multi-loader-flat': 'Multi-loader Template (with flat structure)',
+    'multi-loader-modstitch': 'Multi-loader Template (with Modstitch)',
+    'multi-loader-sinytra': 'Multi-loader Template (with Sinytra Connector)',
+}
+
 function onCancel() {
     p.cancel('Operation cancelled.');
     process.exit(0);
@@ -40,13 +48,10 @@ async function main() {
                 if (!/^[a-z]+(\.[a-z][a-z0-9_]*)+$/.test(value)) return 'Invalid package path format';
             },
         }),
-        platform: () => p.multiselect({
-            message: 'Select the target platform:',
-            initialValues: ['fabric'],
-            options: [
-                { value: 'fabric', label: 'Fabric' },
-                { value: 'forge-like-sinytra', label: 'Forge Like (With Sinytra Connector)' },
-            ],
+        template: () => p.select({
+            message: 'Select the desired template:',
+            initialValue: 'fabric',
+            options: Object.entries(templates).map(([value, label]) => ({ value, label })),
         })
     }, { onCancel });
 
@@ -77,7 +82,7 @@ async function main() {
         `${color.bold('Project Path:')} ${metadata.path}`,
         `${color.bold('Mod Name:')} ${metadata.name}`,
         `${color.bold('Package Path:')} ${metadata.packagePath}`,
-        `${color.bold('Target Platforms:')} ${metadata.platform.join(', ')}`,
+        `${color.bold('Chosen Template:')} ${metadata.template}`,
         `${color.bold('Minecraft Versions:')} ${dependencies.version.join(', ')}`,
         `${color.bold('Include Fabric API:')} ${dependencies.wantsFabricAPI ? 'Yes' : 'No'}`,
     ];
